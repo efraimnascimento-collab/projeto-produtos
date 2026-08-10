@@ -1,1 +1,1 @@
-https://github.com/graziellemiranda-coder/ProductManager-API2
+https://github.com/graziellemiranda-coder/ProductManager-API2.git
