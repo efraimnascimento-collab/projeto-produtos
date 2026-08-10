@@ -1,186 +1,310 @@
-# ProductManager-API2
 # ProductManager API
 
-## Nome do Sistema
+## 1. Nome do Projeto
 
-**ProductManager API**
+ProductManager API
 
-## Objetivo da Aplicação
+## 2. Objetivo
 
-O ProductManager API é uma aplicação desenvolvida para realizar o gerenciamento de produtos de uma empresa. O sistema permite cadastrar, consultar, atualizar e remover produtos através de uma API REST, utilizando Node.js, Express e MySQL.
+O projeto consiste no desenvolvimento e na realização de testes de uma API REST para gerenciamento de produtos.
 
-## Descrição da Solução
+Nesta etapa, foi realizada a homologação da API utilizando o Postman, simulando o trabalho de uma equipe de Desenvolvimento Backend e Quality Assurance (QA).
 
-A aplicação foi criada para solucionar o problema de organização e controle de informações de produtos. Através da API, usuários podem realizar operações de cadastro, consulta, alteração e exclusão de produtos armazenados em um banco de dados MySQL.
+O objetivo dos testes foi verificar o funcionamento das rotas, validar as respostas da API, verificar os códigos de status HTTP e identificar possíveis falhas no tratamento de dados inválidos e erros.
 
-O sistema possui regras de negócio para garantir maior organização dos dados e evitar informações duplicadas.
+## 3. Integrantes da Equipe
 
-## Tecnologias Utilizadas
+- Julia Abreu
+- Nicolle Borges
 
-* Node.js
-* Express
-* MySQL
-* MySQL2
-* Git
-* GitHub
-* Insomnia/Postman para testes da API
+## 4. Tecnologias Utilizadas
 
-## Estrutura do Projeto
+- Node.js
+- Express
+- JavaScript
+- MySQL
+- Postman
+- GitHub
 
-```
-ProductManager/
+## 5. Ferramenta Utilizada nos Testes
 
-├── controllers/
-│   └── produtoController.js
-│
-├── routes/
-│   └── produtoRoutes.js
-│
-├── database/
-│   └── conexao.js
-│
-├── server.js
-├── package.json
-├── package-lock.json
-└── README.md
-```
+Os testes da API foram realizados utilizando o Postman.
 
-## Como Instalar as Dependências
+A API foi executada localmente na porta 3000.
 
-Após baixar o projeto, abra o terminal na pasta do projeto e execute:
+URL base:
 
-```bash
-npm install
-```
-
-Esse comando irá instalar todas as dependências necessárias para executar a aplicação.
-
-## Configuração do Banco de Dados
-
-Crie um banco de dados MySQL chamado:
-
-```sql
-produtos_api
-```
-
-Depois crie a tabela:
-
-```sql
-CREATE TABLE produtos(
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    nome VARCHAR(100) NOT NULL,
-    categoria VARCHAR(100) NOT NULL,
-    preco DECIMAL(10,2) NOT NULL,
-    quantidade INT NOT NULL,
-    status VARCHAR(30) NOT NULL
-);
-```
-
-Também é necessário configurar o arquivo:
-
-```
-database/conexao.js
-```
-
-Informando usuário, senha e banco de dados do MySQL.
-
-## Como Executar a Aplicação
-
-Para iniciar o servidor, execute:
-
-```bash
-npm run dev
-```
-
-A API ficará disponível em:
-
-```
 http://localhost:3000
-```
 
-## Rotas Disponíveis
+## 6. Rotas Testadas
 
-### Listar produtos
+| Método | Rota | Descrição |
+|---|---|---|
+| GET | /produtos | Lista todos os produtos |
+| GET | /produtos/:id | Consulta um produto pelo ID |
+| POST | /produtos | Cadastra um novo produto |
+| PUT | /produtos/:id | Atualiza um produto |
+| DELETE | /produtos/:id | Exclui um produto |
 
-**GET**
+## 7. Testes Realizados
 
-```
-/produtos
-```
+### 7.1 Cadastro de Produto
 
-Retorna todos os produtos cadastrados.
+Foi realizado um teste utilizando o método POST para cadastrar um novo produto.
 
----
+Rota:
 
-### Cadastrar produto
+POST /produtos
 
-**POST**
+Exemplo de dados enviados:
 
-```
-/produtos
-```
-
-Exemplo de envio:
-
-```json
 {
     "nome": "Notebook",
-    "categoria": "Eletrônicos",
+    "categoria": "Eletronicos",
     "preco": 2500,
     "quantidade": 10
 }
-```
+
+Resultado:
+
+O produto foi cadastrado corretamente e a API retornou uma mensagem de confirmação juntamente com o ID gerado pelo banco de dados.
+
+Status HTTP obtido:
+
+200 OK
+
+Resultado do teste: APROVADO.
 
 ---
 
-### Atualizar produto
+### 7.2 Consulta de Todos os Produtos
 
-**PUT**
+Foi realizado um teste utilizando o método GET para consultar todos os produtos cadastrados.
 
-```
-/produtos/:id
-```
+Rota:
 
-Atualiza as informações de um produto existente.
+GET /produtos
+
+O objetivo foi verificar se a API retorna corretamente os registros armazenados no banco de dados.
+
+Resultado do teste: APROVADO.
 
 ---
 
-### Excluir produto
+### 7.3 Consulta de Produto por ID
 
-**DELETE**
+Foi adicionada e testada a rota:
 
-```
-/produtos/:id
-```
+GET /produtos/:id
 
-Remove um produto cadastrado.
+Exemplo:
 
-## Regra de Negócio Criada
+GET /produtos/3
 
-O sistema possui as seguintes regras:
+A rota permite consultar um produto específico utilizando seu identificador.
 
-* Não permite cadastrar produtos com o mesmo nome e categoria.
-* Caso a quantidade do produto seja igual a zero, o sistema altera automaticamente o status para "Indisponível".
-* Campos obrigatórios devem ser preenchidos antes do cadastro.
+Também foi realizado um teste utilizando um ID inexistente.
 
-## Versionamento
+Exemplo:
 
-O projeto foi desenvolvido utilizando Git e GitHub, contendo histórico de commits com a evolução da aplicação.
+GET /produtos/1
 
-Exemplos de commits realizados:
+Quando o produto não existe, a API retorna:
 
-* Criando estrutura inicial do projeto
-* Configurando servidor Express
-* Criando conexão com MySQL
-* Implementando operações CRUD
-* Finalizando documentação README
+{
+    "mensagem": "Produto não encontrado!"
+}
 
-## Integrantes da Equipe
+Status HTTP:
 
-* Integrante 01: Maria Luiza
-* Integrante 02: Efraim
-* Integrante 03: Grazielle
+404 Not Found
 
-## Conclusão
+Resultado do teste: APROVADO.
 
-O projeto demonstra a aplicação dos conceitos de Backend utilizando Node.js, Express e MySQL, criando uma API REST organizada, funcional e integrada a um banco de dados.
+O tratamento de ID inexistente foi identificado e a API apresentou uma resposta adequada.
+
+---
+
+### 7.4 Atualização de Produto
+
+Foi realizado um teste utilizando o método PUT para atualizar informações de um produto.
+
+Rota:
+
+PUT /produtos/:id
+
+Foram enviados novos valores para os campos do produto.
+
+A API retornou a mensagem:
+
+"Produto atualizado!"
+
+Status HTTP:
+
+200 OK
+
+Resultado do teste: APROVADO para registros existentes.
+
+---
+
+### 7.5 Exclusão de Produto
+
+Foi realizado um teste utilizando o método DELETE para excluir um produto.
+
+Rota:
+
+DELETE /produtos/:id
+
+Após a exclusão, foi realizada uma nova consulta pelo ID para verificar se o registro havia sido removido.
+
+Resultado do teste: APROVADO.
+
+---
+
+# 8. Testes de Dados Inválidos
+
+## 8.1 Campo Obrigatório Vazio
+
+Foi realizado um teste enviando o campo nome vazio.
+
+Dados enviados:
+
+{
+    "nome": "",
+    "categoria": "Eletronicos",
+    "preco": 2500,
+    "quantidade": 10
+}
+
+A API aceitou a requisição e retornou o status:
+
+200 OK
+
+Resultado:
+
+FALHA IDENTIFICADA.
+
+A API permitiu o cadastro mesmo com o campo nome vazio. O comportamento esperado seria rejeitar a requisição e retornar um código de erro, como 400 Bad Request.
+
+---
+
+## 8.2 ID Inexistente
+
+Foi realizado um teste utilizando um ID inexistente.
+
+Exemplo:
+
+PUT /produtos/99999
+
+A API retornou:
+
+{
+    "mensagem": "Produto atualizado!"
+}
+
+Status HTTP:
+
+200 OK
+
+Resultado:
+
+FALHA IDENTIFICADA.
+
+A API informou que o produto foi atualizado mesmo utilizando um ID inexistente. O comportamento esperado seria retornar 404 Not Found.
+
+---
+
+## 8.3 Dados com Tipo Inválido
+
+Foi realizado um teste enviando valores inválidos para campos numéricos.
+
+Dados enviados:
+
+{
+    "nome": "Produto Inválido",
+    "categoria": "Teste",
+    "preco": "abc",
+    "quantidade": "xyz"
+}
+
+A API retornou:
+
+500 Internal Server Error
+
+Também foi identificado o erro:
+
+ER_TRUNCATED_WRONG_VALUE_FOR_FIELD
+
+Resultado:
+
+FALHA DE TRATAMENTO IDENTIFICADA.
+
+A API rejeitou os dados inválidos, porém retornou o código 500. O mais adequado seria realizar a validação dos dados antes da consulta ao banco e retornar 400 Bad Request.
+
+---
+
+# 9. Resumo dos Resultados
+
+| Teste | Método | Resultado |
+|---|---|---|
+| Cadastro de produto | POST | APROVADO |
+| Consulta de produtos | GET | APROVADO |
+| Consulta por ID | GET | APROVADO |
+| Atualização | PUT | APROVADO |
+| Exclusão | DELETE | APROVADO |
+| Campo obrigatório vazio | POST | FALHA IDENTIFICADA |
+| ID inexistente | PUT | FALHA IDENTIFICADA |
+| Dados inválidos | POST | FALHA DE TRATAMENTO IDENTIFICADA |
+
+# 10. Conclusão
+
+Os testes realizados no Postman permitiram verificar o funcionamento das principais rotas da ProductManager API.
+
+As operações de cadastro, consulta, atualização e exclusão foram testadas. Também foram realizados testes de situações inválidas, como campos vazios, IDs inexistentes e envio de dados com tipos incompatíveis.
+
+Durante a homologação foram identificadas falhas relacionadas à validação dos dados e ao tratamento de alguns erros.
+
+Os resultados encontrados foram registrados nas evidências dos testes e poderão ser utilizados como pontos de melhoria para aumentar a confiabilidade, segurança e qualidade da API.
+
+# 11. Evidências
+
+As capturas de tela dos testes realizados estão reunidas no arquivo:
+
+postman/evidencias.pdf
+
+As evidências apresentam:
+
+- Requisição realizada;
+- Método HTTP;
+- URL;
+- Body enviado;
+- Resposta da API;
+- Código de status HTTP.
+
+# 12. Collection do Postman
+
+A Collection utilizada nos testes está disponível em:
+
+postman/collection.json
+
+# 13. Estrutura do Projeto
+
+ProductManager-API2/
+
+├── controllers/
+
+├── database/
+
+├── routes/
+
+├── postman/
+
+│   ├── collection.json
+
+│   └── evidencias.pdf
+
+├── README.md
+
+├── package.json
+
+└── ...
