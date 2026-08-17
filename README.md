@@ -153,8 +153,9 @@ http://localhost:3000
 
 ## 7. Equipe
 
-- Julia Abreu
-- Nicolle Borges
+- Efraim
+- Grazielle
+- Maria Luiza
 
 **Instituição:** SENAI Candeias  
 **Professor Orientador:** Adalberto Santana
